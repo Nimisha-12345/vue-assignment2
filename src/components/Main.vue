@@ -13,6 +13,26 @@
       <button v-on:click="makeCaptial">Cap</button>
       <input :checked="isRed" v-model="isRed" type="checkbox" @click="red" />
     </div>
+  
+
+  <div v-bind:style="{color: color_value.color}">
+                {{name}} 
+        </div>
+        <p>Type Something..</p> 
+        <form v-on:submit.prevent>
+            <input v-on:keypress="submit" type="text" v-model="name" />
+        </form>
+
+        
+        
+
+        <select v-model="color_value">
+            <option v-for="(col, index) in colors" v-bind:key="index" v-bind:value="{color: col}">{{col}}</option>
+        </select>
+        <ul>
+            <li v-for="(item, index) in data" v-bind:key="index">{{item}}</li>
+        </ul>
+
   </div>
 </template>
 
@@ -23,6 +43,13 @@ export default {
     return {
       message: "Hello Vue I am ))))",
       isRed: false,
+       colors: ["red", "yellow" , "black", "orange"],
+      color_value: {
+          color: "black"
+      },
+      name: "",
+      data: []
+    
     };
   },
   created: function () {
@@ -41,6 +68,12 @@ export default {
     red: function () {
       console.log(this.isRed);
     },
+    submit: function(e) {
+      if (e.keyCode === 13) {
+        this.data.push(this.name);
+        this.name = "";
+      }
+    }
   },
 };
 </script>
